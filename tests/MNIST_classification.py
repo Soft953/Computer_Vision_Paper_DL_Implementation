@@ -105,7 +105,7 @@ def main():
     if not args.model in MODELS:
         raise ValueError('Model not available')
 
-    model = MODELS[args.model]().to(device)
+    model = MODELS[args.model](n_classes=10).to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)

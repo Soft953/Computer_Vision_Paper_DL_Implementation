@@ -32,7 +32,7 @@ class AlexNet(nn.Module):
 
         x = self.drop(F.relu(self.fc1(x)))
         x = self.drop(F.relu(self.fc2(x)))
-        output = self.fc3(x)
-        #output = F.sigmoid(self.fc3(x))
+        #output = self.fc3(x)
+        output = F.sigmoid(self.fc3(x))
 
         return output 

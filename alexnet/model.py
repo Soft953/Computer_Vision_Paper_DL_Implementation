@@ -13,7 +13,7 @@ class AlexNet(nn.Module):
         self.conv4 = nn.Conv2d(384, 384, kernel_size=3)
         self.conv5 = nn.Conv2d(384, 256, kernel_size=3)
 
-        self.drop(0.5)
+        self.drop = nn.Dropout(0.5)
         self.norm = nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2)
         self.pool = nn.MaxPool2d()
 

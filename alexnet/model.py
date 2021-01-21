@@ -19,9 +19,9 @@ class AlexNet(nn.Module):
 
         self.flatten = nn.Flatten()
 
-        self.fc1 = nn.Linear(256, 1024)
-        self.fc2 = nn.Linear(1024, 512)
-        self.fc3 = nn.Linear(512, n_classes)
+        self.fc1 = nn.Linear(256, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, n_classes)
 
     def forward(self, x):
         x = self.pool(F.relu(self.norm(self.conv1(x))))
@@ -36,6 +36,6 @@ class AlexNet(nn.Module):
         x = self.drop(F.relu(self.fc1(x)))
         x = self.drop(F.relu(self.fc2(x)))
         #output = self.fc3(x)
-        output = F.sigmoid(self.fc3(x))
+        output = nn.LogSigmoid()(self.fc3(x))
 
         return output 

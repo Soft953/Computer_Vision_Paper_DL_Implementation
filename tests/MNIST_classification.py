@@ -9,6 +9,10 @@ from torch.optim.lr_scheduler import StepLR
 
 from alexnet.model import AlexNet as alexnet
 
+MODELS = {
+    'alexnet': alexnet
+}
+
 # Base code from https://github.com/pytorch/examples/blob/master/mnist/main.py
 
 def train(args, model, device, train_loader, optimizer, epoch):
@@ -50,6 +54,7 @@ def test(model, device, test_loader):
 def main():
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+    parser.add_argument('--model', type=str, required=True)
     parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                         help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
@@ -97,7 +102,10 @@ def main():
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
-    model = Net().to(device)
+    if not args.model in MODELS:
+        raise ValueError('Model not available')
+
+    model = MODELS[args.model]().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)

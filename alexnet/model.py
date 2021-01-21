@@ -15,7 +15,7 @@ class AlexNet(nn.Module):
 
         self.drop = nn.Dropout(0.5)
         self.norm = nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2)
-        self.pool = nn.MaxPool2d()
+        self.pool = nn.MaxPool2d(kernel_size=3, stride=2)
 
         self.fc1 = nn.Linear(0, 4096)
         self.fc2 = nn.Linear(4096, 4096)

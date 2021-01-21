@@ -24,21 +24,9 @@ class AlexNet(nn.Module):
         self.fc3 = nn.Linear(512, n_classes)
 
     def forward(self, x):
-        print("start shape:", x.shape)
         x = self.pool(F.relu(self.norm(self.conv1(x))))
-        print("shape conv1:", x.shape)
         x = self.pool(F.relu(self.norm(self.conv2(x))))
-        print("shape conv2:", x.shape)
-
-        #print(x.shape)
-        x = self.conv3(x)
-        #print(x.shape)
-        x = self.norm(x)
-        #print(x.shape)
-        x = F.relu(x)
-        #print(x.shape)
-        x = self.pool(x)
-        #print(x.shape)
+        x = self.pool(F.relu(self.norm(self.conv3(x))))
 
         #x = self.pool(F.relu(self.norm(self.conv4(x))))
         #x = self.pool(F.relu(self.norm(self.conv5(x))))
